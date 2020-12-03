@@ -100,10 +100,8 @@ class _TapBuilderState extends State<TapBuilder> {
     );
 
     if (newState != _tapState) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          _tapState = newState;
-        });
+      setState(() {
+        _tapState = newState;
       });
     }
   }
@@ -134,6 +132,8 @@ class _TapBuilderState extends State<TapBuilder> {
   }
 
   void _handleTap() {
+    _isPressed = false;
+    _updateTapState();
     if (widget.onTap != null) {
       if (widget.enableFeedback) Feedback.forTap(context);
       widget.onTap.call();

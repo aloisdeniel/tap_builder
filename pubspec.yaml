@@ -1,7 +1,7 @@
 name: tap_builder
 description: A new Flutter package project.
 version: 0.1.0
-homepage:
+homepage: https://github.com/aloisdeniel/tap_builder
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

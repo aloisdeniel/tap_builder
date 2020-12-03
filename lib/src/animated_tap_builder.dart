@@ -93,13 +93,14 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
   bool _hasFocus = false;
   bool _isPressed = false;
   Offset _localCursorPosition = Offset.zero;
+  Alignment _cursorAlignment = Alignment.center;
 
-  Alignment get _cursorAlignment {
+  void _updateCursorAlignment() {
     final ax = _localCursorPosition.dx / context.size.width;
     final ay = _localCursorPosition.dy / context.size.height;
-    return Alignment(
-      (ax - 0.5) * 2,
-      (ay - 0.5) * 2,
+    _cursorAlignment = Alignment(
+      ((ax - 0.5) * 2).clamp(-1.0, 1.0),
+      ((ay - 0.5) * 2).clamp(-1.0, 1.0),
     );
   }
 
@@ -124,6 +125,7 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
     if (newLocalCursorPosition != _localCursorPosition) {
       setState(() {
         _localCursorPosition = newLocalCursorPosition;
+        _updateCursorAlignment();
       });
     }
   }
@@ -131,6 +133,7 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
   void _handleMouseEnter(PointerEnterEvent event) {
     _hovering = true;
     _localCursorPosition = event.localPosition;
+    _updateCursorAlignment();
     _updateTapState();
   }
 
@@ -157,15 +160,26 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
   void _handleTapDown(DragDownDetails details) {
     _isPressed = true;
     _localCursorPosition = details.localPosition;
+    _updateCursorAlignment();
+    _updateTapState();
+  }
+
+  void _handleTapUp(DragEndDetails details) {
+    _isPressed = false;
+    _cursorAlignment = Alignment.center;
     _updateTapState();
   }
 
   void _handleTapCancel() {
     _isPressed = false;
+    _cursorAlignment = Alignment.center;
     _updateTapState();
   }
 
   void _handleTap() {
+    _isPressed = false;
+    _cursorAlignment = Alignment.center;
+    _updateTapState();
     if (widget.onTap != null) {
       if (widget.enableFeedback) Feedback.forTap(context);
       widget.onTap.call();
@@ -211,6 +225,7 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
               ? null
               : _handleTap,
           child: GestureDetector(
+            onPanEnd: enabled ? _handleTapUp : null,
             onPanDown: enabled ? _handleTapDown : null,
             onPanUpdate: enabled ? _handlePanUpdate : null,
             onTap: enabled ? _handleTap : null,
