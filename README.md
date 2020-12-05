@@ -7,7 +7,7 @@
   </a>
 </p>
 
-![screenshot](https://github.com/aloisdeniel/tap_builder/raw/main/tap_builder/doc/tap_builder.gif)
+![screenshot](https://github.com/aloisdeniel/tap_builder/raw/main/doc/tap_builder.gif)
 
 A simple widget for building interactive areas. It is an alternative to the material's `Inkwell` that allow to customize the visual effects.
 
@@ -48,4 +48,4 @@ Widget build(BuildContext context) {
 
 ## Example
 
-[See the full example](https://github.com/aloisdeniel/tap_builder/blob/main/tap_builder/example/lib/main.dart)
+[See the full example](https://github.com/aloisdeniel/tap_builder/blob/main/example/lib/main.dart)
