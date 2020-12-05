@@ -166,19 +166,16 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
 
   void _handleTapUp(DragEndDetails details) {
     _isPressed = false;
-    _cursorAlignment = Alignment.center;
     _updateTapState();
   }
 
   void _handleTapCancel() {
     _isPressed = false;
-    _cursorAlignment = Alignment.center;
     _updateTapState();
   }
 
   void _handleTap() {
     _isPressed = false;
-    _cursorAlignment = Alignment.center;
     _updateTapState();
     if (widget.onTap != null) {
       if (widget.enableFeedback) Feedback.forTap(context);
