@@ -1,3 +1,7 @@
+## [0.2.0-beta]
+
+* Added support for beta channel.
+
 ## [0.1.2]
 
 * Fixed compatibility with stable channel.
