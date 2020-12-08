@@ -1,3 +1,7 @@
+## [0.1.3]
+
+* Fixed compatibility with stable channel.
+
 ## [0.1.2]
 
 * Fixed compatibility with stable channel.
