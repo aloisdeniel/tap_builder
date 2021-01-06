@@ -9,7 +9,7 @@
 
 ![screenshot](https://github.com/aloisdeniel/tap_builder/raw/main/doc/tap_builder.gif)
 
-A simple widget for building interactive areas. It is an alternative to the material's `Inkwell` that allow to customize the visual effects.
+A simple widget for building interactive areas. It is an alternative to the material's `Inkwell` that allows customizing the visual effects.
 
 ## Quickstart
 
