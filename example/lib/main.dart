@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class MyHomePage extends StatelessWidget {
 
 class StateButton extends StatelessWidget {
   const StateButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -97,7 +97,7 @@ class StateButton extends StatelessWidget {
 
 class AnimatedStateButton extends StatelessWidget {
   const AnimatedStateButton({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -15,8 +15,8 @@ typedef AnimatedTapWidgetBuilder = Widget Function(
 
 class AnimatedTapBuilder extends StatefulWidget {
   const AnimatedTapBuilder({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     this.onTap,
     this.mouseCursor,
     this.enableFeedback = true,
@@ -25,16 +25,11 @@ class AnimatedTapBuilder extends StatefulWidget {
     this.canRequestFocus = true,
     this.onFocusChange,
     this.autofocus = false,
-  })  : assert(builder != null),
-        assert(enableFeedback != null),
-        assert(excludeFromSemantics != null),
-        assert(autofocus != null),
-        assert(canRequestFocus != null),
-        super(key: key);
+  }) : super(key: key);
 
   final AnimatedTapWidgetBuilder builder;
 
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// The cursor for a mouse pointer when it enters or is hovering over the
   /// widget.
@@ -47,7 +42,7 @@ class AnimatedTapBuilder extends StatefulWidget {
   ///  * [MaterialState.disabled].
   ///
   /// If this property is null, [MaterialStateMouseCursor.clickable] will be used.
-  final MouseCursor mouseCursor;
+  final MouseCursor? mouseCursor;
 
   /// Whether detected gestures should provide acoustic and/or haptic feedback.
   ///
@@ -72,13 +67,13 @@ class AnimatedTapBuilder extends StatefulWidget {
   ///
   /// Called with true if this widget's node gains focus, and false if it loses
   /// focus.
-  final ValueChanged<bool> onFocusChange;
+  final ValueChanged<bool>? onFocusChange;
 
   /// {@macro flutter.widgets.Focus.autofocus}
   final bool autofocus;
 
   /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   /// {@macro flutter.widgets.Focus.canRequestFocus}
   final bool canRequestFocus;
@@ -96,12 +91,15 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
   Alignment _cursorAlignment = Alignment.center;
 
   void _updateCursorAlignment() {
-    final ax = _localCursorPosition.dx / context.size.width;
-    final ay = _localCursorPosition.dy / context.size.height;
-    _cursorAlignment = Alignment(
-      ((ax - 0.5) * 2).clamp(-1.0, 1.0),
-      ((ay - 0.5) * 2).clamp(-1.0, 1.0),
-    );
+    final size = context.size;
+    if (size != null) {
+      final ax = _localCursorPosition.dx / size.width;
+      final ay = _localCursorPosition.dy / size.height;
+      _cursorAlignment = Alignment(
+        ((ax - 0.5) * 2).clamp(-1.0, 1.0),
+        ((ay - 0.5) * 2).clamp(-1.0, 1.0),
+      );
+    }
   }
 
   bool get enabled => widget.onTap != null;
@@ -179,7 +177,7 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
     _updateTapState();
     if (widget.onTap != null) {
       if (widget.enableFeedback) Feedback.forTap(context);
-      widget.onTap.call();
+      widget.onTap?.call();
     }
   }
 
@@ -192,8 +190,6 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
       case NavigationMode.directional:
         return true;
     }
-
-    return false;
   }
 
   @override
