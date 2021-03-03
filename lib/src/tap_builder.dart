@@ -12,8 +12,8 @@ typedef TapWidgetBuilder = Widget Function(
 
 class TapBuilder extends StatefulWidget {
   const TapBuilder({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     this.onTap,
     this.mouseCursor,
     this.enableFeedback = true,
@@ -22,15 +22,10 @@ class TapBuilder extends StatefulWidget {
     this.canRequestFocus = true,
     this.onFocusChange,
     this.autofocus = false,
-  })  : assert(builder != null),
-        assert(enableFeedback != null),
-        assert(excludeFromSemantics != null),
-        assert(autofocus != null),
-        assert(canRequestFocus != null),
-        super(key: key);
+  }) : super(key: key);
 
   final TapWidgetBuilder builder;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// The cursor for a mouse pointer when it enters or is hovering over the
   /// widget.
@@ -43,7 +38,7 @@ class TapBuilder extends StatefulWidget {
   ///  * [MaterialState.disabled].
   ///
   /// If this property is null, [MaterialStateMouseCursor.clickable] will be used.
-  final MouseCursor mouseCursor;
+  final MouseCursor? mouseCursor;
 
   /// Whether detected gestures should provide acoustic and/or haptic feedback.
   ///
@@ -68,13 +63,13 @@ class TapBuilder extends StatefulWidget {
   ///
   /// Called with true if this widget's node gains focus, and false if it loses
   /// focus.
-  final ValueChanged<bool> onFocusChange;
+  final ValueChanged<bool>? onFocusChange;
 
   /// {@macro flutter.widgets.Focus.autofocus}
   final bool autofocus;
 
   /// {@macro flutter.widgets.Focus.focusNode}
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
   /// {@macro flutter.widgets.Focus.canRequestFocus}
   final bool canRequestFocus;
@@ -136,12 +131,12 @@ class _TapBuilderState extends State<TapBuilder> {
     _updateTapState();
     if (widget.onTap != null) {
       if (widget.enableFeedback) Feedback.forTap(context);
-      widget.onTap.call();
+      widget.onTap?.call();
     }
   }
 
   bool get _canRequestFocus {
-    final mode = MediaQuery.of(context, nullOk: true)?.navigationMode ??
+    final mode = MediaQuery.maybeOf(context)?.navigationMode ??
         NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
@@ -149,8 +144,6 @@ class _TapBuilderState extends State<TapBuilder> {
       case NavigationMode.directional:
         return true;
     }
-
-    return false;
   }
 
   @override

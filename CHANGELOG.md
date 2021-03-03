@@ -1,3 +1,11 @@
+## [0.2.0]
+
+* Migration to null-safety.
+
+## [0.2.0-beta]
+
+* Added support for beta channel.
+
 ## [0.1.3]
 
 * Fixed compatibility with stable channel.

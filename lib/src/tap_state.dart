@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 enum TapState {
   disabled,
   inactive,
@@ -10,10 +8,10 @@ enum TapState {
 
 abstract class TapStates {
   static TapState fromBooleans({
-    @required bool isEnabled,
-    @required bool isPressed,
-    @required bool isHovered,
-    @required bool isFocused,
+    required bool isEnabled,
+    required bool isPressed,
+    required bool isHovered,
+    required bool isFocused,
   }) {
     if (!isEnabled) return TapState.disabled;
     if (isPressed) return TapState.pressed;
