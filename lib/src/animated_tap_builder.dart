@@ -182,7 +182,7 @@ class _AnimatedTapBuilderState extends State<AnimatedTapBuilder> {
   }
 
   bool get _canRequestFocus {
-    final mode = MediaQuery.of(context, nullOk: true)?.navigationMode ??
+    final mode = MediaQuery.maybeOf(context)?.navigationMode ??
         NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
