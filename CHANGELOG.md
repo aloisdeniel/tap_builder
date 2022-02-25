@@ -1,3 +1,7 @@
+## [0.3.1]
+
+* Fixed `defaultMouseCursorBuilder` import when published on pub.
+
 ## [0.3.0]
 
 * Added the `isFocused` parameter to builders to make focus state composable with effective tap state.

@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:tap_builder/tap_builder.dart';
 
+import 'mouse_cursor_builder.dart';
 import 'tap_state.dart';
 
 part 'animated_tap_builder.dart';

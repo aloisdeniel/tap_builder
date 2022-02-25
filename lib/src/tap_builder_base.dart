@@ -61,22 +61,6 @@ abstract class _TapBuilderWidget extends StatefulWidget {
 
   /// {@macro flutter.widgets.Focus.canRequestFocus}
   final bool canRequestFocus;
-
-  static MouseCursor defaultMouseCursorBuilder(
-    BuildContext context,
-    TapState state,
-    bool isFocused,
-  ) {
-    switch (state) {
-      case TapState.disabled:
-        return SystemMouseCursors.forbidden;
-      case TapState.pressed:
-      case TapState.hover:
-        return SystemMouseCursors.click;
-      default:
-        return SystemMouseCursors.basic;
-    }
-  }
 }
 
 abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
