@@ -1,19 +1,18 @@
 name: tap_builder
 description: A simple widget for building interactive areas.
-version: 0.2.0
+version: 0.3.0
 homepage: https://github.com/aloisdeniel/tap_builder
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=2.0.0 <3.0.0"
+  sdk: ">=2.16.0 <3.0.0"
+  flutter: ">=2.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
 dev_dependencies:
+  lints: ^1.0.0
   flutter_test:
     sdk: flutter
-
-flutter:
 

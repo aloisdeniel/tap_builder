@@ -1,3 +1,8 @@
+## [0.3.0]
+
+* Added the `isFocused` parameter to builders to make focus state composable with effective tap state.
+* Added actions for tap.
+
 ## [0.2.0]
 
 * Migration to null-safety.

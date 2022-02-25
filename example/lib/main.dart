@@ -58,7 +58,7 @@ class StateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TapBuilder(
       onTap: () {},
-      builder: (context, state) => AnimatedContainer(
+      builder: (context, state, isFocused) => AnimatedContainer(
         padding: EdgeInsets.symmetric(
           vertical: 14,
           horizontal: 28,
@@ -66,12 +66,14 @@ class StateButton extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            color: Colors.white.withOpacity(isFocused ? 0.2 : 0.0),
+            width: 2,
+          ),
           color: () {
             switch (state) {
               case TapState.disabled:
                 return Colors.grey;
-              case TapState.focused:
-                return Color(0xFF0AAF97);
               case TapState.hover:
                 return Color(0xFF0AAF97);
               case TapState.inactive:
@@ -104,7 +106,7 @@ class AnimatedStateButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedTapBuilder(
       onTap: () {},
-      builder: (context, state, cursorLocation, cursorAlignment) {
+      builder: (context, state, isFocused, cursorLocation, cursorAlignment) {
         cursorAlignment = state == TapState.pressed
             ? Alignment(-cursorAlignment.x, -cursorAlignment.y)
             : Alignment.center;

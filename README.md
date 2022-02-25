@@ -18,19 +18,21 @@ A simple widget for building interactive areas. It is an alternative to the mate
 Widget build(BuildContext context) {
     return TapBuilder(
         onTap: () {},
-        builder: (context, state) => AnimatedContainer(
+        builder: (context, state, isFocused) => AnimatedContainer(
             padding: EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 20,
             ),
             duration: const Duration(milliseconds: 500),
             decoration: BoxDecoration(
+                border: Border.all(
+                    color: Colors.white.withOpacity(isFocused ? 0.2 : 0.0),
+                    width: 2,
+                ),
                 color: () {
                     switch (state) {
                         case TapState.disabled:
                             return Colors.grey;
-                        case TapState.focused:
-                            return Colors.lightBlue;
                         case TapState.hover:
                             return Colors.blue;
                         case TapState.inactive:
