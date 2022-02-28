@@ -1,6 +1,6 @@
 name: tap_builder
 description: A simple widget for building interactive areas.
-version: 0.3.1
+version: 0.3.3
 homepage: https://github.com/aloisdeniel/tap_builder
 
 environment:

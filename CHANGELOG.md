@@ -1,3 +1,11 @@
+## [0.3.#]
+
+* Fixed stack overflow with 'canRequestFocus' getter.
+
+## [0.3.2]
+
+* Fixed stack overflow with mouse cursor enter event.
+
 ## [0.3.1]
 
 * Fixed `defaultMouseCursorBuilder` import when published on pub.

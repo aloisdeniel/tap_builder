@@ -144,22 +144,28 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   }
 
   void handleTapDown(TapDownDetails details) {
-    setState(() {
-      _isPressed = true;
-    });
+    if (!_isPressed) {
+      setState(() {
+        _isPressed = true;
+      });
+    }
   }
 
   void handleTapCancel() {
-    setState(() {
-      _isPressed = false;
-    });
+    if (_isPressed) {
+      setState(() {
+        _isPressed = false;
+      });
+    }
   }
 
   void handleTap() {
     simulateTap();
-    setState(() {
-      _isPressed = false;
-    });
+    if (_isPressed) {
+      setState(() {
+        _isPressed = false;
+      });
+    }
   }
 
   void handleLongpress() {
@@ -168,9 +174,11 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
       onLongPress();
       if (widget.enableFeedback) Feedback.forLongPress(context);
     }
-    setState(() {
-      _isPressed = false;
-    });
+    if (_isPressed) {
+      setState(() {
+        _isPressed = false;
+      });
+    }
   }
 
   bool isWidgetEnabled(_TapBuilderWidget widget) {
@@ -180,15 +188,19 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   bool get enabled => isWidgetEnabled(widget);
 
   void handleMouseEnter(PointerEnterEvent event) {
-    setState(() {
-      _isHovered = true;
-    });
+    if (!_isHovered) {
+      setState(() {
+        _isHovered = true;
+      });
+    }
   }
 
   void handleMouseExit(PointerExitEvent event) {
-    setState(() {
-      _isHovered = false;
-    });
+    if (!_isHovered) {
+      setState(() {
+        _isHovered = false;
+      });
+    }
   }
 
   bool get canRequestFocus {
@@ -196,7 +208,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
         NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
-        return enabled && canRequestFocus;
+        return enabled && widget.canRequestFocus;
       case NavigationMode.directional:
         return true;
     }
