@@ -1,4 +1,8 @@
-## [0.3.#]
+## [0.3.4]
+
+* Fixed mouse cursor hover state.
+
+## [0.3.3]
 
 * Fixed stack overflow with 'canRequestFocus' getter.
 

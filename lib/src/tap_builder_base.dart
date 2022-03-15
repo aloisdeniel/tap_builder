@@ -196,7 +196,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   }
 
   void handleMouseExit(PointerExitEvent event) {
-    if (!_isHovered) {
+    if (_isHovered) {
       setState(() {
         _isHovered = false;
       });
