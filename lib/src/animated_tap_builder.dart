@@ -21,6 +21,8 @@ class AnimatedTapBuilder extends _TapBuilderWidget {
     bool canRequestFocus = true,
     ValueChanged<bool>? onFocusChange,
     bool autofocus = false,
+    FocusOnKeyCallback? onKey,
+    FocusOnKeyEventCallback? onKeyEvent,
   }) : super(
           key: key,
           onTap: onTap,
@@ -32,6 +34,8 @@ class AnimatedTapBuilder extends _TapBuilderWidget {
           canRequestFocus: canRequestFocus,
           onFocusChange: onFocusChange,
           autofocus: autofocus,
+          onKey: onKey,
+          onKeyEvent: onKeyEvent,
         );
 
   final AnimatedTapWidgetBuilder builder;
@@ -40,8 +44,7 @@ class AnimatedTapBuilder extends _TapBuilderWidget {
   _AnimatedTapBuilderState createState() => _AnimatedTapBuilderState();
 }
 
-class _AnimatedTapBuilderState
-    extends _TapBuilderBaseState<AnimatedTapBuilder> {
+class _AnimatedTapBuilderState extends _TapBuilderBaseState<AnimatedTapBuilder> {
   Offset _localCursorPosition = Offset.zero;
   Alignment _cursorAlignment = Alignment.center;
 
@@ -94,8 +97,7 @@ class _AnimatedTapBuilderState
   }
 
   @override
-  Widget buildGestureManager(
-      BuildContext context, Widget child, MouseCursor cursor) {
+  Widget buildGestureManager(BuildContext context, Widget child, MouseCursor cursor) {
     return MouseRegion(
       cursor: cursor,
       onEnter: handleMouseEnter,

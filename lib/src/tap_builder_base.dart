@@ -18,6 +18,8 @@ abstract class _TapBuilderWidget extends StatefulWidget {
     required this.canRequestFocus,
     required this.onFocusChange,
     required this.autofocus,
+    required this.onKey,
+    required this.onKeyEvent,
   }) : super(key: key);
 
   final VoidCallback? onTap;
@@ -61,10 +63,15 @@ abstract class _TapBuilderWidget extends StatefulWidget {
 
   /// {@macro flutter.widgets.Focus.canRequestFocus}
   final bool canRequestFocus;
+
+  /// {@macro flutter.widgets.Focus.onKey}
+  final FocusOnKeyCallback? onKey;
+
+  /// {@macro flutter.widgets.Focus.onKeyEvent}
+  final FocusOnKeyEventCallback? onKeyEvent;
 }
 
-abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
-    extends State<T> {
+abstract class _TapBuilderBaseState<T extends _TapBuilderWidget> extends State<T> {
   bool _isFocused = false;
   bool _isHovered = false;
   bool _isPressed = false;
@@ -73,14 +80,12 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   @override
   void initState() {
     super.initState();
-    FocusManager.instance
-        .addHighlightModeListener(handleFocusHighlightModeChange);
+    FocusManager.instance.addHighlightModeListener(handleFocusHighlightModeChange);
   }
 
   @override
   void dispose() {
-    FocusManager.instance
-        .removeHighlightModeListener(handleFocusHighlightModeChange);
+    FocusManager.instance.removeHighlightModeListener(handleFocusHighlightModeChange);
     super.dispose();
   }
 
@@ -101,8 +106,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
 
   late final Map<Type, Action<Intent>> _actionMap = <Type, Action<Intent>>{
     ActivateIntent: CallbackAction<ActivateIntent>(onInvoke: simulateTap),
-    ButtonActivateIntent:
-        CallbackAction<ButtonActivateIntent>(onInvoke: simulateTap),
+    ButtonActivateIntent: CallbackAction<ButtonActivateIntent>(onInvoke: simulateTap),
   };
 
   void simulateTap([Intent? intent]) {
@@ -127,8 +131,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   }
 
   bool get _shouldShowFocus {
-    final mode = MediaQuery.maybeOf(context)?.navigationMode ??
-        NavigationMode.traditional;
+    final mode = MediaQuery.maybeOf(context)?.navigationMode ?? NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
         return enabled && _isFocused;
@@ -204,8 +207,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   }
 
   bool get canRequestFocus {
-    final NavigationMode mode = MediaQuery.maybeOf(context)?.navigationMode ??
-        NavigationMode.traditional;
+    final NavigationMode mode = MediaQuery.maybeOf(context)?.navigationMode ?? NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
         return enabled && widget.canRequestFocus;
@@ -216,8 +218,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
 
   Widget buildChild(BuildContext context);
 
-  Widget buildGestureManager(
-      BuildContext context, Widget child, MouseCursor cursor) {
+  Widget buildGestureManager(BuildContext context, Widget child, MouseCursor cursor) {
     return MouseRegion(
       cursor: cursor,
       onEnter: handleMouseEnter,
@@ -249,10 +250,10 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
         canRequestFocus: canRequestFocus,
         onFocusChange: handleFocusUpdate,
         autofocus: widget.autofocus,
+        onKey: widget.onKey,
+        onKeyEvent: widget.onKeyEvent,
         child: Semantics(
-          onTap: widget.excludeFromSemantics || widget.onTap == null
-              ? null
-              : simulateTap,
+          onTap: widget.excludeFromSemantics || widget.onTap == null ? null : simulateTap,
           child: buildGestureManager(
             context,
             buildChild(context),
