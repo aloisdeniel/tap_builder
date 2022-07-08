@@ -44,7 +44,8 @@ class AnimatedTapBuilder extends _TapBuilderWidget {
   _AnimatedTapBuilderState createState() => _AnimatedTapBuilderState();
 }
 
-class _AnimatedTapBuilderState extends _TapBuilderBaseState<AnimatedTapBuilder> {
+class _AnimatedTapBuilderState
+    extends _TapBuilderBaseState<AnimatedTapBuilder> {
   Offset _localCursorPosition = Offset.zero;
   Alignment _cursorAlignment = Alignment.center;
 
@@ -97,7 +98,8 @@ class _AnimatedTapBuilderState extends _TapBuilderBaseState<AnimatedTapBuilder> 
   }
 
   @override
-  Widget buildGestureManager(BuildContext context, Widget child, MouseCursor cursor) {
+  Widget buildGestureManager(
+      BuildContext context, Widget child, MouseCursor cursor) {
     return MouseRegion(
       cursor: cursor,
       onEnter: handleMouseEnter,
