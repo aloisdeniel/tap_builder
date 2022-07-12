@@ -18,6 +18,8 @@ abstract class _TapBuilderWidget extends StatefulWidget {
     required this.canRequestFocus,
     required this.onFocusChange,
     required this.autofocus,
+    required this.onKey,
+    required this.onKeyEvent,
   }) : super(key: key);
 
   final VoidCallback? onTap;
@@ -61,6 +63,12 @@ abstract class _TapBuilderWidget extends StatefulWidget {
 
   /// {@macro flutter.widgets.Focus.canRequestFocus}
   final bool canRequestFocus;
+
+  /// {@macro flutter.widgets.Focus.onKey}
+  final FocusOnKeyCallback? onKey;
+
+  /// {@macro flutter.widgets.Focus.onKeyEvent}
+  final FocusOnKeyEventCallback? onKeyEvent;
 }
 
 abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
@@ -249,6 +257,8 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
         canRequestFocus: canRequestFocus,
         onFocusChange: handleFocusUpdate,
         autofocus: widget.autofocus,
+        onKey: widget.onKey,
+        onKeyEvent: widget.onKeyEvent,
         child: Semantics(
           onTap: widget.excludeFromSemantics || widget.onTap == null
               ? null

@@ -1,3 +1,6 @@
+## [0.3.5]
+* Added onKey and onKeyEvent that will be bound to the Focus widget
+
 ## [0.3.4]
 
 * Fixed mouse cursor hover state.

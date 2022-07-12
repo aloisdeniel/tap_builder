@@ -26,6 +26,8 @@ class TapBuilder extends _TapBuilderWidget {
     bool canRequestFocus = true,
     ValueChanged<bool>? onFocusChange,
     bool autofocus = false,
+    FocusOnKeyCallback? onKey,
+    FocusOnKeyEventCallback? onKeyEvent,
   }) : super(
           key: key,
           onTap: onTap,
@@ -37,6 +39,8 @@ class TapBuilder extends _TapBuilderWidget {
           canRequestFocus: canRequestFocus,
           onFocusChange: onFocusChange,
           autofocus: autofocus,
+          onKey: onKey,
+          onKeyEvent: onKeyEvent,
         );
 
   final TapWidgetBuilder builder;
