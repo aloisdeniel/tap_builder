@@ -20,6 +20,8 @@ abstract class _TapBuilderWidget extends StatefulWidget {
     required this.autofocus,
     required this.onKey,
     required this.onKeyEvent,
+    this.hitTestBehavior = HitTestBehavior.opaque,
+    this.minPressedDuration,
   }) : super(key: key);
 
   final VoidCallback? onTap;
@@ -69,6 +71,19 @@ abstract class _TapBuilderWidget extends StatefulWidget {
 
   /// {@macro flutter.widgets.Focus.onKeyEvent}
   final FocusOnKeyEventCallback? onKeyEvent;
+
+  /// {@macro flutter.widgets.GestureDetector.hitTestBehavior}
+  final HitTestBehavior hitTestBehavior;
+
+  /// The minimal duration during which the builder will remain in the
+  /// [TapState.pressed].
+  ///
+  /// This can be useful to make sure an animation is fully played before
+  /// coming back to its inactive state.
+  ///
+  /// If `null`, then the button comes back to the inactive state right after
+  /// the builder is released.
+  final Duration? minPressedDuration;
 }
 
 abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
@@ -77,6 +92,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   bool _isHovered = false;
   bool _isPressed = false;
   bool _showFocus = true;
+  int _pressCount = 0;
 
   @override
   void initState() {
@@ -152,28 +168,16 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   }
 
   void handleTapDown(TapDownDetails details) {
-    if (!_isPressed) {
-      setState(() {
-        _isPressed = true;
-      });
-    }
+    press();
   }
 
   void handleTapCancel() {
-    if (_isPressed) {
-      setState(() {
-        _isPressed = false;
-      });
-    }
+    unpress();
   }
 
   void handleTap() {
     simulateTap();
-    if (_isPressed) {
-      setState(() {
-        _isPressed = false;
-      });
-    }
+    unpress();
   }
 
   void handleLongpress() {
@@ -182,7 +186,41 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
       onLongPress();
       if (widget.enableFeedback) Feedback.forLongPress(context);
     }
+    unpress();
+  }
+
+  /// Set [_isPressed] to `true`.
+  void press() {
+    if (!_isPressed) {
+      _pressCount++;
+      setState(() {
+        _isPressed = true;
+      });
+    }
+  }
+
+  /// Set [_isPressed] to `false`.
+  void unpress() {
     if (_isPressed) {
+      final duration = widget.minPressedDuration;
+      if (duration != null) {
+        unpressAfterDelay(_pressCount, duration);
+      } else {
+        setState(() {
+          _isPressed = false;
+        });
+      }
+    }
+  }
+
+  Future<void> unpressAfterDelay(
+    int initialPressCount,
+    Duration duration,
+  ) async {
+    await Future.delayed(duration);
+    // If press count is different from the initial one, then the button has
+    // been pressed again in between and we shouldn't unpress it.
+    if (_isPressed && _pressCount == initialPressCount) {
       setState(() {
         _isPressed = false;
       });
@@ -235,7 +273,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
         onTap: widget.onTap != null ? handleTap : null,
         onLongPress: widget.onLongPress != null ? handleLongpress : null,
         onTapCancel: enabled ? handleTapCancel : null,
-        behavior: HitTestBehavior.opaque,
+        behavior: widget.hitTestBehavior,
         excludeFromSemantics: true,
         child: child,
       ),

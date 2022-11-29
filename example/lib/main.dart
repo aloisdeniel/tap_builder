@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:tap_builder/tap_builder.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -14,13 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage({
+  const MyHomePage({
     Key? key,
   }) : super(key: key);
 
@@ -28,19 +30,23 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'TapBuilder',
         ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: const [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: StateButton(),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
+            child: DelayedPressedStateButton(),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
             child: AnimatedStateButton(),
           ),
         ],
@@ -59,7 +65,7 @@ class StateButton extends StatelessWidget {
     return TapBuilder(
       onTap: () {},
       builder: (context, state, isFocused) => AnimatedContainer(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 14,
           horizontal: 28,
         ),
@@ -75,15 +81,15 @@ class StateButton extends StatelessWidget {
               case TapState.disabled:
                 return Colors.grey;
               case TapState.hover:
-                return Color(0xFF0AAF97);
+                return const Color(0xFF0AAF97);
               case TapState.inactive:
-                return Color(0xFF00d1b2);
+                return const Color(0xFF00d1b2);
               case TapState.pressed:
-                return Color(0xFF0AAF97);
+                return const Color(0xFF0AAF97);
             }
           }(),
         ),
-        child: Text(
+        child: const Text(
           'TapBuilder',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -145,7 +151,7 @@ class AnimatedStateButton extends StatelessWidget {
                     0,
                   ),
                   duration: const Duration(milliseconds: 200),
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'AnimatedTapBuilder',
                       style: TextStyle(
@@ -184,6 +190,55 @@ class AnimatedStateButton extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class DelayedPressedStateButton extends StatelessWidget {
+  const DelayedPressedStateButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TapBuilder(
+      onTap: () {},
+      minPressedDuration: const Duration(milliseconds: 500),
+      builder: (context, state, isFocused) => AnimatedContainer(
+        padding: const EdgeInsets.symmetric(
+          vertical: 14,
+          horizontal: 28,
+        ),
+        duration: const Duration(milliseconds: 500),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+            color: Colors.white.withOpacity(isFocused ? 0.2 : 0.0),
+            width: 2,
+          ),
+          color: () {
+            switch (state) {
+              case TapState.disabled:
+                return Colors.grey;
+              case TapState.hover:
+                return const Color(0xFF0AAF97);
+              case TapState.inactive:
+                return const Color(0xFF00d1b2);
+              case TapState.pressed:
+                return const Color(0xFF0AAF97);
+            }
+          }(),
+        ),
+        child: const Text(
+          'TapBuilder with delayed press',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+        ),
+      ),
     );
   }
 }

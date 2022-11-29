@@ -23,6 +23,7 @@ class AnimatedTapBuilder extends _TapBuilderWidget {
     bool autofocus = false,
     FocusOnKeyCallback? onKey,
     FocusOnKeyEventCallback? onKeyEvent,
+    HitTestBehavior hitTestBehavior = HitTestBehavior.opaque,
   }) : super(
           key: key,
           onTap: onTap,
@@ -36,6 +37,7 @@ class AnimatedTapBuilder extends _TapBuilderWidget {
           autofocus: autofocus,
           onKey: onKey,
           onKeyEvent: onKeyEvent,
+          hitTestBehavior: hitTestBehavior,
         );
 
   final AnimatedTapWidgetBuilder builder;
@@ -112,7 +114,7 @@ class _AnimatedTapBuilderState
         onTap: widget.onTap != null ? handleTap : null,
         onPanCancel: enabled ? handleTapCancel : null,
         onLongPress: widget.onLongPress != null ? handleLongpress : null,
-        behavior: HitTestBehavior.opaque,
+        behavior: widget.hitTestBehavior,
         excludeFromSemantics: true,
         child: child,
       ),

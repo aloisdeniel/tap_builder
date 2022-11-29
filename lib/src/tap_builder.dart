@@ -28,6 +28,8 @@ class TapBuilder extends _TapBuilderWidget {
     bool autofocus = false,
     FocusOnKeyCallback? onKey,
     FocusOnKeyEventCallback? onKeyEvent,
+    HitTestBehavior hitTestBehavior = HitTestBehavior.opaque,
+    Duration? minPressedDuration,
   }) : super(
           key: key,
           onTap: onTap,
@@ -41,6 +43,8 @@ class TapBuilder extends _TapBuilderWidget {
           autofocus: autofocus,
           onKey: onKey,
           onKeyEvent: onKeyEvent,
+          hitTestBehavior: hitTestBehavior,
+          minPressedDuration: minPressedDuration,
         );
 
   final TapWidgetBuilder builder;

@@ -1,5 +1,11 @@
+## [0.4.0]
+
+* Added `minPressedDuration` and `hitTestBehaviour` parameters.
+* Upgraded to latest Flutter version.
+
 ## [0.3.5]
-* Added onKey and onKeyEvent that will be bound to the Focus widget
+
+* Added `onKey` and `onKeyEvent` that will be bound to the `Focus` widget
 
 ## [0.3.4]
 
@@ -7,7 +13,7 @@
 
 ## [0.3.3]
 
-* Fixed stack overflow with 'canRequestFocus' getter.
+* Fixed stack overflow with `canRequestFocus` getter.
 
 ## [0.3.2]
 
