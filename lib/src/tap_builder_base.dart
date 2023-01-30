@@ -182,7 +182,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
 
   void handleLongpress() {
     final onLongPress = widget.onLongPress;
-    if (onLongPress != null) {
+    if (onLongPress != null && mounted) {
       onLongPress();
       if (widget.enableFeedback) Feedback.forLongPress(context);
     }
@@ -191,7 +191,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
 
   /// Set [_isPressed] to `true`.
   void press() {
-    if (!_isPressed) {
+    if (!_isPressed && mounted) {
       _pressCount++;
       setState(() {
         _isPressed = true;
@@ -201,7 +201,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
 
   /// Set [_isPressed] to `false`.
   void unpress() {
-    if (_isPressed) {
+    if (_isPressed && mounted) {
       final duration = widget.minPressedDuration;
       if (duration != null) {
         unpressAfterDelay(_pressCount, duration);
@@ -220,7 +220,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
     await Future.delayed(duration);
     // If press count is different from the initial one, then the button has
     // been pressed again in between and we shouldn't unpress it.
-    if (_isPressed && _pressCount == initialPressCount) {
+    if (_isPressed && _pressCount == initialPressCount && mounted) {
       setState(() {
         _isPressed = false;
       });
@@ -234,7 +234,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   bool get enabled => isWidgetEnabled(widget);
 
   void handleMouseEnter(PointerEnterEvent event) {
-    if (!_isHovered) {
+    if (!_isHovered && mounted) {
       setState(() {
         _isHovered = true;
       });
@@ -242,7 +242,7 @@ abstract class _TapBuilderBaseState<T extends _TapBuilderWidget>
   }
 
   void handleMouseExit(PointerExitEvent event) {
-    if (_isHovered) {
+    if (_isHovered && mounted) {
       setState(() {
         _isHovered = false;
       });
