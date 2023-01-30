@@ -1,5 +1,9 @@
 ## [0.4.0]
 
+* Added `mounted` check.
+
+## [0.4.0]
+
 * Added `minPressedDuration` and `hitTestBehaviour` parameters.
 * Upgraded to latest Flutter version.
 
