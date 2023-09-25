@@ -204,6 +204,7 @@ class DelayedPressedStateButton extends StatelessWidget {
     return TapBuilder(
       onTap: () {},
       minPressedDuration: const Duration(milliseconds: 500),
+      hitTestBehavior: HitTestBehavior.translucent,
       builder: (context, state, isFocused) => AnimatedContainer(
         padding: const EdgeInsets.symmetric(
           vertical: 14,

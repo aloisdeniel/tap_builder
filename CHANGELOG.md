@@ -1,3 +1,8 @@
+## [0.5.0]
+
+* Upgraded minimum dart version to 3.0.
+* Added `TapResolver`.
+
 ## [0.4.0]
 
 * Added `mounted` check.
